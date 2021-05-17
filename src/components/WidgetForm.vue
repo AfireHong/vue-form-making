@@ -93,10 +93,12 @@ export default {
     handleMoveEnd ({newIndex, oldIndex}) {
       console.log('index', newIndex, oldIndex)
     },
+    // 选取组件，将当前选择的组件信息保存在selectWidget，通过watch监听该对象的变化，发出emit，父组件中控制右侧内容的切换
     handleSelectWidget (index) {
       console.log(index, '#####')
       this.selectWidget = this.data.list[index]
     },
+    // 组件添加的监听
     handleWidgetAdd (evt) {
       console.log('add', evt)
       console.log('end', evt)
@@ -106,6 +108,7 @@ export default {
       
       //为拖拽到容器的元素添加唯一 key
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
+      console.log(this.data)
       this.$set(this.data.list, newIndex, {
         ...this.data.list[newIndex],
         options: {
@@ -186,7 +189,9 @@ export default {
 
       this.selectWidget = row.columns[colIndex].list[newIndex]
     },
+    // 删除栅格布局
     handleWidgetDelete (index) {
+      console.log('del'+index)
       if (this.data.list.length - 1 === index) {
         if (index === 0) {
           this.selectWidget = {}

@@ -216,6 +216,7 @@ export default {
     
   },
   methods: {
+    // 选择当前表单组件
     handleSelectWidget (index) {
       this.selectWidget = this.data.list[index]
     },

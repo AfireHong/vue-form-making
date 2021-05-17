@@ -385,6 +385,7 @@ export default {
       }
       
     },
+    // 栅格布局添加列
     handleAddColumn () {
       this.data.columns.push({
         span: '',

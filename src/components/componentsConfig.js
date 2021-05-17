@@ -227,6 +227,7 @@ export const basicComponents = [
 ]
 
 export const advanceComponents = [
+  // 自定义区域
   {
     type: 'blank',
     icon: 'icon-zidingyishuju',
@@ -234,12 +235,14 @@ export const advanceComponents = [
       defaultType: 'String'
     }
   },
+  // 图片上传
   {
     type: 'imgupload',
     icon: 'icon-tupian',
     options: {
       defaultValue: [],
-      size: {
+      // 图片宽高
+      size: {   
         width: 100,
         height: 100,
       },
@@ -254,9 +257,11 @@ export const advanceComponents = [
       isDelete: false,
       min: 0,
       isEdit: false,
+      // 文件提交地址
       action: 'https://jsonplaceholder.typicode.com/photos/'
     }
   },
+  //编辑器
   {
     type: 'editor',
     icon: 'icon-fuwenbenkuang',
@@ -265,6 +270,7 @@ export const advanceComponents = [
       width: ''
     }
   },
+  //级联选择器
   {
     type: 'cascader',
     icon: 'icon-jilianxuanze',

@@ -11,6 +11,7 @@ import './iconfont/iconfont.css'
 import './styles/cover.scss'
 import './styles/index.scss'
 
+
 const loadLang = function (Vue, lang, locale, i18n) {
   if (locale) {
     locale('en-US', {...locale('en-US'), ...enUS})
@@ -27,7 +28,7 @@ const loadLang = function (Vue, lang, locale, i18n) {
     Vue.config.lang = lang
   }
 }
-
+// 为了支持 Vue.use()，Vue.js 的插件应该暴露一个 install 方法。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象。因此在两个组件中都需要挂在install方法
 MakingForm.install = function (Vue, opts = {
   lang: 'zh-CN',
   locale: null,

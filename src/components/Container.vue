@@ -3,8 +3,10 @@
     <el-container class="fm2-container">
       <el-main class="fm2-main">
         <el-container>
+          <!-- 左栏 -->
           <el-aside width="250px">
             <div class="components-list">
+              <!-- 基础字段 -->
               <template v-if="basicFields.length">
                 <div class="widget-cate">{{$t('fm.components.basic.title')}}</div>
                 <draggable tag="ul" :list="basicComponents" 
@@ -22,7 +24,8 @@
                     </li>
                   </template>                
                 </draggable>
-              </template>            
+              </template> 
+              <!-- 高级字段 -->
               <template v-if="advanceFields.length">
                 <div class="widget-cate">{{$t('fm.components.advance.title')}}</div>
                 <draggable tag="ul" :list="advanceComponents" 
@@ -42,7 +45,7 @@
                 </draggable>
               </template>
 
-              
+              <!-- 布局字段 -->
               <template v-if="layoutFields.length">
                 <div class="widget-cate">{{$t('fm.components.layout.title')}}</div>
                 <draggable tag="ul" :list="layoutComponents" 
@@ -65,8 +68,10 @@
             </div>
             
           </el-aside>
+          <!-- 中间显示部分 -->
           <el-container class="center-container" direction="vertical">
             <el-header class="btn-bar" style="height: 45px;">
+              <!-- home中定义的插槽显示在这里 -->
               <slot name="action">
               </slot>
               <el-button v-if="upload" type="text" size="medium" icon="el-icon-upload2" @click="handleUpload">{{$t('fm.actions.import')}}</el-button>
@@ -76,11 +81,14 @@
               <el-button v-if="generateCode" type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">{{$t('fm.actions.code')}}</el-button>
             </el-header>
             <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
-              
+              <!-- 表单组件 -->
+              <!-- 注意这里的.sync修饰符：:select.sync就是:select="name" @update.select="widgetFormSelect = $event"的缩写 -->
+              <!-- 修改widgetFormSelect -->
+              <!-- 这个修饰符在vue2.0被取消了，但是在vue2.3+版本回归 -->
               <widget-form v-if="!resetJson"  ref="widgetForm" :data="widgetForm" :select.sync="widgetFormSelect"></widget-form>
             </el-main>
           </el-container>
-          
+          <!-- 右栏 -->
           <el-aside class="widget-config-container">
             <el-container>
               <el-header height="45px">
@@ -95,6 +103,11 @@
             
           </el-aside>
 
+
+
+
+          
+          <!-- 预览弹框 -->
           <cus-dialog
             :visible="previewVisible"
             @on-close="previewVisible = false"
@@ -115,7 +128,7 @@
               <el-button @click="handleReset">{{$t('fm.actions.reset')}}</el-button>
             </template>
           </cus-dialog>
-
+          <!-- 导入json弹框 -->
           <cus-dialog
             :visible="uploadVisible"
             @on-close="uploadVisible = false"
@@ -127,7 +140,7 @@
             <el-alert type="info" :title="$t('fm.description.uploadJsonInfo')"></el-alert>
             <div id="uploadeditor" style="height: 400px;width: 100%;">{{jsonEg}}</div>
           </cus-dialog>
-
+          <!-- 生成json代码弹框 -->
           <cus-dialog
             :visible="jsonVisible"
             @on-close="jsonVisible = false"
@@ -142,7 +155,7 @@
               <el-button type="primary" class="json-btn" :data-clipboard-text="jsonCopyValue">{{$t('fm.actions.copyData')}}</el-button>
             </template>
           </cus-dialog>
-
+          <!-- 生成代码弹框 -->
           <cus-dialog
             :visible="codeVisible"
             @on-close="codeVisible = false"
@@ -231,6 +244,7 @@ export default {
       layoutComponents,
       advanceComponents,
       resetJson: false,
+      // 传递给表单生成器的data字段
       widgetForm: {
         list: [],
         config: {
@@ -275,13 +289,13 @@ export default {
       jsonCopyValue: '',
       jsonClipboard: null,
       jsonEg: `{
-  "list": [],
-  "config": {
-    "labelWidth": 100,
-    "labelPosition": "top",
-    "size": "small"
-  }
-}`,
+        "list": [],
+        "config": {
+          "labelWidth": 100,
+          "labelPosition": "top",
+          "size": "small"
+        }
+      }`,
       codeActiveName: 'vue',
     }
   },
@@ -315,9 +329,11 @@ export default {
     handleConfigSelect (value) {
       this.configTab = value
     },
+    // 停止拖拽
     handleMoveEnd (evt) {
       console.log('end', evt)
     },
+    // 拖拽元素
     handleMoveStart ({oldIndex}) {
       console.log('start', oldIndex, this.basicComponents)
     },
